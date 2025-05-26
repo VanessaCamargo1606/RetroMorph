@@ -1,5 +1,17 @@
 # RetroMorph 🎭
 
+##  Enlace al repositorio
+
+Este proyecto está disponible públicamente en GitHub:
+
+➡️ [https://github.com/VanessaCamargo1606/RetroMorph](https://github.com/VanessaCamargo1606/RetroMorph)
+
+##  Descarga directa del proyecto (.zip)
+
+Si desea descargar todo el código directamente:
+
+   [Descargar ZIP](https://github.com/VanessaCamargo1606/RetroMorph/archive/refs/heads/main.zip)
+
 **RetroMorph** es una aplicación de escritorio desarrollada en Python con Tkinter que detecta la emoción de una persona a partir de una imagen, realiza un Face Swap con un personaje cinematográfico y permite aplicar un estilo artístico a la imagen final mediante técnicas de Neural Style Transfer (NST).
 
 -  Detección de emociones con **EfficientNet**
