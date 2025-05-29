@@ -375,8 +375,8 @@ for i, (nombre, ruta) in enumerate(estilos):
     boton.grid(row=fila, column=columna, padx=12, pady=10)
 
 
-# 2. BOTÓN DE GUARDAR - ¡fuera del contenedor!
-# Crear el botón pero NO lo mostramos todavía
+# 2. BOTÓN DE GUARDAR 
+# Crear el botón pero no lo mostramos todavía
 boton_guardar = tk.Button(
     frame_estilos,
     text="💾",

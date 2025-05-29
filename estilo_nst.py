@@ -17,7 +17,7 @@ def cancelar_entrenamiento():
 
 
 
-# --- TRANSFORMACIONES ---
+# TRANSFORMACIONES
 loader = transforms.Compose([
     transforms.Resize((400, 400)),  # Ajusta según tu interfaz
     transforms.ToTensor()
@@ -77,9 +77,10 @@ def aplicar_estilizado_nst(ruta_contenido, ruta_estilo, ruta_salida):
 
     style_grams = [gram_matrix(f) for f in style_features]
 
-    # Pesos
-    style_weight = 1e6
-    content_weight = 1
+    # Ponderaciones de la pérdida (loss weights)
+
+    style_weight = 1e6 # style_weight: qué tanto énfasis se le da al estilo de la imagen de referencia
+    content_weight = 1 # content_weight: qué tanto se conserva la estructura de la imagen original
 
     print("Iniciando transferencia de estilo...")
 
