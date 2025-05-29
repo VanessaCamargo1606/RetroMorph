@@ -4,7 +4,7 @@
 
 Este proyecto está disponible públicamente en GitHub:
 
-➡️ [https://github.com/VanessaCamargo1606/RetroMorph](https://github.com/VanessaCamargo1606/RetroMorph)
+[https://github.com/VanessaCamargo1606/RetroMorph](https://github.com/VanessaCamargo1606/RetroMorph)
 
 ##  Descarga directa del proyecto (.zip)
 
@@ -28,45 +28,51 @@ Una vez descargado, colócalo en la raíz del proyecto (junto a captura_emocion.
 
 ## Instalación 
 
-Antes de continuar, asegúrate de tener Anaconda instalado.
-Puedes descargarlo desde su página oficial:
-🔗 https://www.anaconda.com/products/distribution
+Abre Anaconda Prompt, CMD o la terminal de VSCode y sigue estos pasos, según cómo obtuviste el proyecto:
 
-Abre **Anaconda Prompt**, CMD o la terminal de VSCode y sigue estos pasos:
+**Opción A** – Si clonaste el repositorio con Git:
 
 1. Clona el repositorio:
 
-git clone https://github.com/TU_USUARIO/RetroMorph.git
+git clone https://github.com/VanessaCamargo1606/RetroMorph.git
 cd RetroMorph
 
-2. Crea y activa un entorno virtual:
+**Opción B** – Si descargaste el proyecto como .zip:
+
+1. Extrae el archivo .zip que descargaste.
+
+2. Navega a la carpeta extraída desde la terminal:
+cd RetroMorph-main
+
+**A continuación, realiza los pasos comunes:**
+
+1. Crea y activa un entorno virtual:
 
 conda create -n morph python=3.10
 conda activate morph
 
+2. Instala PyTorch con soporte para GPU (recomendado):
+
+Antes de instalar los requerimientos del proyecto, es necesario instalar manualmente PyTorch con soporte CUDA, ya que el archivo `requirements.txt` no incluye `torch` ni `torchvision` para evitar conflictos entre versiones de CPU y GPU.
+
+⚠️ Importante: Si ya tienes instalados torch, torchvision o torchaudio, es necesario desinstalarlos antes de instalar la versión compatible con CUDA.
+
+```bash
+pip uninstall torch torchvision torchaudio
+```
+
+Si cuentas con una tarjeta NVIDIA, instala la versión de PyTorch compatible con CUDA 11.8 (asegúrate de tener el entorno morph activado):
+
+```bash
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+```
 3. Instala las dependencias:
 
 pip install -r requirements.txt
 
-El modelo `inswapper_128.onnx` ya viene incluido en el repositorio dentro de la carpeta `models/`, por lo que no es necesario descargarlo manualmente.
-
 4. Ejecuta el archivo principal:
 
 python captura_emocion.py
-
-
-## Si estás usando Visual Studio Code:
-
-- Abre la carpeta del proyecto RetroMorph desde VSCode.
-- Abre la terminal integrada con `Ctrl + ñ` o desde el menú "Terminal > Nueva terminal".
-- Asegúrate de que el entorno `morph` esté activado. Si no lo está, actívalo con:
-  
-  conda activate morph
-
-- Luego ejecuta el archivo principal con:
-
-  python captura_emocion.py
-
 
 ## Requisitos del sistema
 

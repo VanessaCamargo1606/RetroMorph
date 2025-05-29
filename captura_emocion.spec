@@ -5,7 +5,7 @@ a = Analysis(
     ['captura_emocion.py'],
     pathex=[],
     binaries=[],
-    datas=[('estilos', 'estilos'), ('modelo_emociones', 'modelo_emociones'), ('personajes_img', 'personajes_img'), ('inswapper_128.onnx', '.'), ('personajes.py', '.'), ('face_swap_insight.py', '.'), ('estilo_nst.py', '.'), ('detectar_emocion.py', '.')],
+    datas=[('inswapper_128.onnx', '.'), ('modelo_emociones', 'modelo_emociones'), ('estilos', 'estilos'), ('personajes_img', 'personajes_img'), ('personajes.py', '.'), ('face_swap_insight.py', '.'), ('estilo_nst.py', '.'), ('detectar_emocion.py', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

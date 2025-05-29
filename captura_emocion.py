@@ -1,8 +1,6 @@
 import os
-
 import estilo_nst
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
-
 
 import torch
 import torch.nn as nn
@@ -14,7 +12,7 @@ import numpy as np
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
-import os
+import sys
 from personajes import mostrar_info_personaje
 from detectar_emocion import detectar_emocion_desde_imagen
 #from face_swap import realizar_faceswap 
@@ -33,7 +31,21 @@ model.classifier = nn.Sequential(
     nn.Dropout(p=0.4),
     nn.Linear(model.classifier[1].in_features, 7)
 )
-model.load_state_dict(torch.load('modelo_emociones/modelo_emociones_efficientnet.pth', map_location=DEVICE))
+
+def ruta_relativa_archivo(nombre_archivo):
+    if getattr(sys, 'frozen', False):
+        # Estamos en el .exe
+        ruta_base = sys._MEIPASS
+    else:
+        # Ejecutando desde VS Code
+        ruta_base = os.path.abspath(".")
+
+    return os.path.join(ruta_base, nombre_archivo)
+
+modelo_path = ruta_relativa_archivo("modelo_emociones/modelo_emociones_efficientnet.pth")
+model.load_state_dict(torch.load(modelo_path, map_location=DEVICE))
+
+#model.load_state_dict(torch.load('modelo_emociones/modelo_emociones_efficientnet.pth', map_location=DEVICE))
 model.to(DEVICE)
 model.eval()
 
@@ -122,11 +134,11 @@ def tomar_captura():
         frame_espejo = cv2.flip(frame_original, 1)
 
         # Guardar la imagen espejada como la imagen oficial del usuario (para face swap)
-        ruta_foto = 'foto_usuario.jpg'
+        ruta_foto = ruta_relativa_archivo("foto_usuario.jpg")
         cv2.imwrite(ruta_foto, frame_espejo)
 
-        # También guardarla temporalmente para mostrarla como vista previa
-        temp_ruta = "__temp_espejo.jpg"
+        # También guardarla temporalmente para mostrarla en la vista previa
+        temp_ruta = ruta_relativa_archivo("__temp_espejo.jpg")
         cv2.imwrite(temp_ruta, frame_espejo)
 
         # Procesar emoción con la imagen en espejo
@@ -145,12 +157,12 @@ def procesar_emocion(ruta):
         ruta_imagen_personaje, texto = mostrar_info_personaje(emocion_es)
         label_personaje.config(text=texto)
 
-        # Face swap y control de error
-        #exito_swap = realizar_faceswap("foto_usuario.jpg", ruta_imagen_personaje)
         exito_swap = realizar_faceswap_insightface("foto_usuario.jpg", ruta_imagen_personaje)
 
-        if exito_swap and os.path.exists("resultado_faceswap.jpg"):
-            mostrar_foto_capturada("resultado_faceswap.jpg")
+        ruta_faceswap = ruta_relativa_archivo("resultado_faceswap.jpg")
+        if exito_swap and os.path.exists(ruta_faceswap):
+          mostrar_foto_capturada("resultado_faceswap.jpg")
+       
         else:
             print(" No se pudo generar el face swap.")
             mostrar_foto_capturada(ruta)
@@ -160,7 +172,8 @@ def mostrar_foto_capturada(ruta):
     alto_deseado = 400
 
     try:
-        imagen = Image.open(ruta).resize((ancho_deseado, alto_deseado))
+        #imagen = Image.open(ruta).resize((ancho_deseado, alto_deseado))
+        imagen = Image.open(ruta_relativa_archivo(ruta)).resize((ancho_deseado, alto_deseado))
         imagen_tk = ImageTk.PhotoImage(imagen)
 
         label_foto_capturada.config(image=imagen_tk)
@@ -176,7 +189,8 @@ def guardar_imagen_final():
     )
     if ruta_guardar:
         try:
-            imagen = Image.open("resultado_estilizado.jpg")
+            #imagen = Image.open("resultado_estilizado.jpg")
+            imagen = Image.open(ruta_relativa_archivo("resultado_estilizado.jpg"))
             imagen.save(ruta_guardar)
             print(f"Imagen guardada en {ruta_guardar}")
         except Exception as e:

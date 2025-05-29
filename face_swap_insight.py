@@ -1,12 +1,27 @@
 # face_swap_insight.py
-
+import os
+import sys
 import insightface
 import cv2
 import numpy as np
 from PIL import Image
 
+def ruta_relativa_archivo(nombre_archivo):
+    if getattr(sys, 'frozen', False):
+        # Ejecutable generado con PyInstaller
+        ruta_base = sys._MEIPASS
+    else:
+        # Ejecución normal en desarrollo
+        ruta_base = os.path.abspath(".")
+
+    return os.path.join(ruta_base, nombre_archivo)
+
+# Usar ruta correcta
+modelo_path = ruta_relativa_archivo("inswapper_128.onnx")
+swapper = insightface.model_zoo.get_model(modelo_path)
+
 # Cargar el modelo del face swap
-swapper = insightface.model_zoo.get_model("inswapper_128.onnx")  # ← NO lleva .prepare()
+#swapper = insightface.model_zoo.get_model("inswapper_128.onnx")  # ← NO lleva .prepare()
 
 # Cargar detector de rostros
 face_model = insightface.app.FaceAnalysis(name='buffalo_l')

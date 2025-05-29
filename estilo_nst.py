@@ -34,7 +34,7 @@ def cargar_imagen(ruta):
     return imagen.to(device, torch.float)
 
 
-# --- CAPAS DE ESTILO ---
+# CAPAS DE ESTILO
 class FeatureExtractor(nn.Module):
     def __init__(self, cnn):
         super(FeatureExtractor, self).__init__()
@@ -54,7 +54,7 @@ class FeatureExtractor(nn.Module):
         return features
 
 
-# --- FUNCIONES DE PERDIDA ---
+#  FUNCIONES DE PERDIDA
 def gram_matrix(tensor):
     b, c, h, w = tensor.size()
     features = tensor.view(b * c, h * w)
