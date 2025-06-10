@@ -1,0 +1,9 @@
+opencv-python
+Pillow
+numpy
+insightface
+onnxruntime
+onnxruntime-gpu
+pyinstaller
+
+
